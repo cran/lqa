@@ -1,5 +1,4 @@
-lqa.default <-
-function (x, y, family = gaussian (), penalty = NULL, method = "lqa.update2", weights = rep (1, nobs), start = NULL, etastart = NULL, mustart = NULL, offset = rep (0, nobs), control = lqa.control (), intercept = TRUE, standardize = TRUE, ...)
+lqa.default <- function (x, y, family = gaussian (), penalty = NULL, method = "lqa.update2", weights = rep (1, nobs), start = NULL, etastart = NULL, mustart = NULL, offset = rep (0, nobs), control = lqa.control (), intercept = TRUE, standardize = TRUE, ...)
 {
     call <- match.call ()
 
@@ -22,6 +21,9 @@ function (x, y, family = gaussian (), penalty = NULL, method = "lqa.update2", we
 ### Check for quadratic penalty:
 ### ---------------------------- 
 
+  if (! (method == "nng.update"))
+  {
+
     if (is.null (penalty))
       stop ("penalty not specified \n")
 
@@ -36,6 +38,7 @@ function (x, y, family = gaussian (), penalty = NULL, method = "lqa.update2", we
       print (penalty)
       stop ("'penalty' not recognized")
     }
+  }
 
 
 ### Check for existence of 'method':
@@ -150,4 +153,3 @@ norm.x = norm.x, Amat = Amat, method = method, rank = fit$tr.H, x = x, y = y, fi
     class (fit) <- c ("lqa", "glm", "lm")
     fit
 }
-
